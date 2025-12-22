@@ -1,0 +1,100 @@
+.sidebar {
+  width: 260px;
+  height: 100vh;
+  background-color: #F9F9FA;
+  border-right: 1px solid #EBEBEB;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 20px 12px;
+}
+
+.sidebar.collapsed {
+  width: 80px;
+}
+
+/* Botão de Recolher */
+.collapse-btn {
+  position: absolute;
+  right: -12px;
+  top: 30px;
+  width: 24px;
+  height: 24px;
+  background: #FFD700;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  z-index: 10;
+}
+
+.sidebar-header {
+  margin-bottom: 40px;
+  padding: 0 10px;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  overflow: hidden;
+}
+
+.logo-text {
+  font-weight: 800;
+  font-size: 1.1rem;
+  white-space: nowrap;
+}
+
+.gold-text { color: #FFD700; }
+
+/* Navegação com NavLink */
+.sidebar-nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  text-decoration: none;
+  color: #8E8E93;
+  border-radius: 12px;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.nav-link:hover {
+  background-color: #F1F1F2;
+  color: #1A1A1A;
+}
+
+.nav-link.active {
+  background-color: #FFFFFF;
+  color: #1A1A1A;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  border: 1px solid #EBEBEB;
+}
+
+.nav-link.active svg {
+  color: #FFD700;
+}
+
+/* Esconder spans quando colapsado */
+.sidebar.collapsed .nav-link {
+  justify-content: center;
+  padding: 12px 0;
+}
+
+.sidebar-footer {
+  border-top: 1px solid #EBEBEB;
+  padding-top: 20px;
+}
