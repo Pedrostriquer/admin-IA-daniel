@@ -7,7 +7,8 @@ export const chatService = {
    */
   getChats: async (params = {}) => {
     try {
-      const response = await api.get('/admin/chats', { params });
+      // Adicionado o prefixo /api para coincidir com a nova configuração da baseURL
+      const response = await api.get('/api/admin/chats', { params });
       return response.data; 
       // Retorna { data: [...], pagination: {...} }
     } catch (error) {
@@ -23,7 +24,8 @@ export const chatService = {
    */
   getChatMessages: async (chatId, params = { limit: 50 }) => {
     try {
-      const response = await api.get(`/admin/chats/${chatId}/messages`, { params });
+      // Adicionado o prefixo /api para coincidir com a nova configuração da baseURL
+      const response = await api.get(`/api/admin/chats/${chatId}/messages`, { params });
       return response.data;
       // Retorna { data: [...], pagination: {...} }
     } catch (error) {

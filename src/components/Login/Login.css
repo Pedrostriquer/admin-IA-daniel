@@ -1,0 +1,220 @@
+.login-page-container {
+  width: 100vw;
+  height: 100vh;
+  background-color: #f4f5f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.unified-login-card {
+  width: 100%;
+  height: 100%;
+  background: white;
+  display: flex;
+  overflow: hidden;
+  box-shadow: 0 50px 100px -20px rgba(0,0,0,0.15);
+}
+
+/* --- LADO DO GRADIENTE (AGORA MENOR) --- */
+.login-visual-part {
+  position: relative;
+  flex: 0.9; /* Diminuído de 1.3 para 0.8 */
+  margin: 15px;
+  border-radius: 30px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+}
+
+.shader-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.shader-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.4) 100%);
+  z-index: 1;
+}
+
+.visual-content-wrapper {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: white;
+}
+
+.brand-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.brand-symbol {
+  font-size: 48px;
+  font-weight: 900;
+  color: #FFD700;
+  line-height: 1;
+}
+
+.brand-text {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.brand-footer-msg {
+  max-width: 100%; /* Ajustado para o novo espaço menor */
+  text-shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+
+.kicker {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  color: #FFD700;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.brand-footer-msg h1 {
+  font-size: 38px; /* Reduzido levemente para caber melhor no espaço menor */
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+}
+
+/* --- LADO DO FORMULÁRIO (AGORA MAIOR) --- */
+.login-form-part {
+  flex: 1.1; /* Aumentado para 1.2 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px;
+  background-color: #fff;
+}
+
+.form-container-inner {
+  width: 100%;
+  max-width: 450px; /* Aumentado levemente para aproveitar o espaço */
+}
+
+.form-container-inner h2 {
+  font-size: 34px;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+}
+
+.form-container-inner p {
+  color: #777;
+  margin-bottom: 40px;
+  font-size: 15px;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 10px;
+}
+
+.input-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.lead-icon {
+  position: absolute;
+  left: 16px;
+  color: #adb5bd;
+}
+
+.input-with-icon input {
+  width: 100%;
+  padding: 16px 16px 16px 48px;
+  border: 1.5px solid #eee;
+  border-radius: 14px;
+  font-size: 15px;
+  transition: all 0.2s;
+  background-color: #fbfbfb;
+  font-family: inherit;
+}
+
+.input-with-icon input:focus {
+  border-color: #FFD700;
+  background-color: #fff;
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.1);
+}
+
+.eye-toggle {
+  position: absolute;
+  right: 16px;
+  background: none;
+  border: none;
+  color: #adb5bd;
+  cursor: pointer;
+}
+
+.login-action-btn {
+  width: 100%;
+  background-color: #1a1a1a;
+  color: #FFD700;
+  border: none;
+  padding: 18px;
+  border-radius: 16px;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: all 0.2s;
+  display: flex;
+  justify-content: center;
+}
+
+.login-action-btn:hover {
+  background-color: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.login-error-box {
+  background: #fff5f5;
+  color: #c53030;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  border: 1px solid #feb2b2;
+}
+
+.form-footer-copyright {
+  margin-top: 50px;
+  font-size: 12px;
+  color: #ccc;
+  text-align: center;
+}
+
+.animate-spin { animation: spin 1s linear infinite; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+@media (max-width: 1000px) {
+  .login-visual-part { display: none; }
+  .login-page-container { background-color: #fff; }
+}

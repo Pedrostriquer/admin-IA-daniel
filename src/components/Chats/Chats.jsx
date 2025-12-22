@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
 import './Chats.css';
 import { chatService } from '../../services/chatService';
-import { Search, Filter, Globe, Instagram, Send, MoreVertical, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Search, Globe, Instagram, Send, MoreVertical, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export function Chats() {
   const [chats, setChats] = useState([]);
@@ -10,26 +11,41 @@ export function Chats() {
   const [search, setSearch] = useState('');
   const [platform, setPlatform] = useState('');
   const [page, setPage] = useState(1);
+  const [loadingMessages, setLoadingMessages] = useState(false);
 
-  // Carregar lista de chats
+  // Função para limpar tags customizadas como <negrito> na lista lateral
+  const stripTags = (text) => {
+    if (!text) return "";
+    return text.replace(/<[^>]*>/g, ''); // Remove qualquer coisa entre < >
+  };
+
   useEffect(() => {
     async function loadChats() {
-      const response = await chatService.getChats({ page, platform, search, limit: 10 });
-      setChats(response.data);
+      try {
+        const response = await chatService.getChats({ page, platform, search, limit: 10 });
+        setChats(response.data);
+      } catch (error) {
+        console.error("Erro ao carregar chats:", error);
+      }
     }
     loadChats();
   }, [page, platform, search]);
 
-  // Carregar mensagens quando selecionar um chat
   const handleSelectChat = async (chat) => {
     setSelectedChat(chat);
-    const response = await chatService.getChatMessages(chat.id);
-    setMessages(response.data);
+    setLoadingMessages(true);
+    try {
+      const response = await chatService.getChatMessages(chat.id);
+      setMessages(response.data);
+    } catch (error) {
+      console.error("Erro ao carregar mensagens:", error);
+    } finally {
+      setLoadingMessages(false);
+    }
   };
 
   return (
     <div className="chats-wrapper">
-      {/* COLUNA ESQUERDA: LISTA DE CHATS */}
       <aside className="chats-sidebar">
         <header className="sidebar-top">
           <h1>Mensagens</h1>
@@ -69,22 +85,28 @@ export function Chats() {
               <div className="chat-info">
                 <div className="chat-info-top">
                   <span className="customer-name">{chat.name}</span>
-                  <span className="chat-time">22:10</span>
+                  <span className="chat-time">
+                    {chat.last_message_at ? new Date(chat.last_message_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : ''}
+                  </span>
                 </div>
-                <p className="last-message">{chat.last_message_content}</p>
+                {/* Aqui limpamos a mensagem para o preview na lista lateral */}
+                <p className="last-message">{stripTags(chat.last_message_content)}</p>
               </div>
             </div>
           ))}
         </div>
 
         <footer className="pagination-footer">
-          <button onClick={() => setPage(p => Math.max(1, p - 1))}><ChevronLeft size={18} /></button>
+          <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}>
+            <ChevronLeft size={18} />
+          </button>
           <span>Página {page}</span>
-          <button onClick={() => setPage(p => p + 1)}><ChevronRight size={18} /></button>
+          <button onClick={() => setPage(p => p + 1)}>
+            <ChevronRight size={18} />
+          </button>
         </footer>
       </aside>
 
-      {/* COLUNA DIREITA: JANELA DE CONVERSA */}
       <main className="chat-window">
         {selectedChat ? (
           <>
@@ -100,14 +122,25 @@ export function Chats() {
             </header>
 
             <div className="messages-container">
-              {messages.map(msg => (
-                <div key={msg.id} className={`message-row ${msg.role}`}>
-                  <div className="message-bubble">
-                    {msg.content}
-                    <span className="msg-time">22:15</span>
+              {loadingMessages ? (
+                <div className="loading-state">Carregando mensagens...</div>
+              ) : (
+                messages.map(msg => (
+                  <div key={msg.id} className={`message-row ${msg.role}`}>
+                    <div className="message-bubble">
+                      <div className="markdown-content">
+                        {/* No chat principal, usamos Markdown normalmente */}
+                        <ReactMarkdown>
+                          {msg.content?.replace(/<negrito>/g, '**').replace(/<\/negrito>/g, '**')}
+                        </ReactMarkdown>
+                      </div>
+                      <span className="msg-time">
+                        {new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                      </span>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))
+              )}
             </div>
 
             <footer className="chat-input-area">

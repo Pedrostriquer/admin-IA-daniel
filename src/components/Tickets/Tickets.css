@@ -1,0 +1,238 @@
+.tickets-container {
+  padding: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header & Filtros */
+.tickets-header {
+  margin-bottom: 32px;
+}
+
+.title-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.title-section h1 {
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.total-badge {
+  background: #1A1A1A;
+  color: #FFD700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.filters-bar {
+  display: flex;
+  gap: 16px;
+  background: #FFF;
+  padding: 16px;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+  border: 1px solid #EFEFEF;
+}
+
+.search-input {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #F8F9FB;
+  padding: 0 16px;
+  border-radius: 12px;
+  border: 1px solid #EEE;
+}
+
+.search-input input {
+  border: none;
+  background: transparent;
+  padding: 12px 0;
+  width: 100%;
+  outline: none;
+  font-family: inherit;
+}
+
+.filters-bar select {
+  padding: 0 16px;
+  border-radius: 12px;
+  border: 1px solid #EEE;
+  background: #F8F9FB;
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  outline: none;
+}
+
+/* Lista de Tickets */
+.tickets-list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-right: 8px;
+}
+
+.ticket-item {
+  background: #FFF;
+  border: 1px solid #EFEFEF;
+  border-radius: 16px;
+  transition: all 0.2s ease;
+}
+
+.ticket-item:hover {
+  border-color: #FFD700;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.ticket-item.expanded {
+  border-color: #FFD700;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.ticket-item-header {
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.header-main {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.ticket-id {
+  color: #999;
+  font-weight: 700;
+  font-size: 14px;
+  min-width: 40px;
+}
+
+.ticket-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1A1A1A;
+}
+
+.header-meta {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  color: #666;
+}
+
+/* Badges de Prioridade */
+.priority-tag {
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.prio-urgente { background: #FFECEB; color: #FF453A; }
+.prio-prioritario { background: #FFF4E5; color: #FF9F0A; }
+.prio-normal { background: #EAF2FF; color: #007AFF; }
+
+/* Conteúdo Expandido */
+.ticket-item-content {
+  padding: 0 24px 24px 24px;
+  border-top: 1px dashed #EEE;
+  animation: slideDown 0.3s ease;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 40px;
+  padding-top: 24px;
+}
+
+.description-section h4, .details-section h4 {
+  font-size: 13px;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+}
+
+.description-section p {
+  line-height: 1.6;
+  color: #333;
+}
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #555;
+}
+
+.action-footer {
+  margin-top: 32px;
+  display: flex;
+  gap: 12px;
+}
+
+.btn-resolve {
+  background: #FFD700;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-secondary {
+  background: #F0F0F0;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Paginação */
+.pagination-footer {
+  padding: 24px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.page-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: 1px solid #EEE;
+  background: #FFF;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.page-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
