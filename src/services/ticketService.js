@@ -1,10 +1,6 @@
 import api from './api';
 
 export const ticketService = {
-  /**
-   * Listar Tickets com filtros
-   * @param {Object} params - page, limit, status, emergency_level
-   */
   getTickets: async (params = {}) => {
     try {
       const response = await api.get('/api/admin/tickets', { params });
@@ -15,11 +11,9 @@ export const ticketService = {
     }
   },
 
-  /**
-   * Atualizar status ou nota de um ticket
-   */
   updateTicket: async (id, data) => {
     try {
+      // data deve ser algo como { status: 2 }
       const response = await api.patch(`/api/admin/tickets/${id}`, data);
       return response.data;
     } catch (error) {

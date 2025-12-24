@@ -2,16 +2,15 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { ticketService } from '../../services/ticketService';
 import { 
   Search, 
-  Filter, 
   ChevronDown, 
   ChevronUp, 
-  Clock, 
   User, 
   Hash, 
   AlertTriangle,
   ChevronLeft,
   ChevronRight,
-  Calendar
+  Calendar,
+  CheckCircle2 
 } from 'lucide-react';
 import './Tickets.css';
 
@@ -21,7 +20,6 @@ export function Tickets() {
   const [loading, setLoading] = useState(true);
   const [expandedId, setExpandedId] = useState(null);
   
-  // Estados dos Filtros
   const [searchTerm, setSearchTerm] = useState('');
   const [priority, setPriority] = useState('');
   const [status, setStatus] = useState('');
@@ -35,7 +33,6 @@ export function Tickets() {
         limit: 10,
         emergency_level: priority || undefined,
         status: status !== '' ? status : undefined,
-        // search: searchTerm // Se sua API suportar busca por texto
       };
       
       const response = await ticketService.getTickets(params);
@@ -51,6 +48,19 @@ export function Tickets() {
   useEffect(() => {
     loadTickets();
   }, [loadTickets]);
+
+  // FUNÇÃO ATUALIZADA: Apenas status, sem resolution_note
+  const handleResolve = async (id) => {
+    try {
+      await ticketService.updateTicket(id, { status: 2 });
+      
+      // Atualiza a lista localmente para mudar o visual na hora
+      setTickets(prev => prev.map(t => t.id === id ? { ...t, status: 2 } : t));
+    } catch (err) {
+      console.error("Erro ao atualizar status:", err);
+      alert("Erro ao atualizar o ticket. Verifique o console.");
+    }
+  };
 
   const toggleExpand = (id) => {
     setExpandedId(expandedId === id ? null : id);
@@ -94,7 +104,7 @@ export function Tickets() {
           <select value={status} onChange={(e) => {setStatus(e.target.value); setPage(1)}}>
             <option value="">Todos Status</option>
             <option value="1">Aberto</option>
-            <option value="0">Resolvido</option>
+            <option value="2">Resolvido</option>
           </select>
         </div>
       </header>
@@ -108,12 +118,15 @@ export function Tickets() {
           tickets.map(ticket => (
             <div 
               key={ticket.id} 
-              className={`ticket-item ${expandedId === ticket.id ? 'expanded' : ''}`}
+              className={`ticket-item ${expandedId === ticket.id ? 'expanded' : ''} ${ticket.status === 2 ? 'is-resolved' : ''}`}
             >
-              {/* Preview / Cabeçalho do Item */}
               <div className="ticket-item-header" onClick={() => toggleExpand(ticket.id)}>
                 <div className="header-main">
-                  <span className="ticket-id">#{ticket.id}</span>
+                  {ticket.status === 2 ? (
+                    <CheckCircle2 size={18} className="resolved-icon-check" />
+                  ) : (
+                    <span className="ticket-id">#{ticket.id}</span>
+                  )}
                   <h3 className="ticket-title">{ticket.title}</h3>
                 </div>
                 
@@ -128,7 +141,6 @@ export function Tickets() {
                 </div>
               </div>
 
-              {/* Conteúdo Expandido */}
               {expandedId === ticket.id && (
                 <div className="ticket-item-content">
                   <div className="content-grid">
@@ -151,18 +163,34 @@ export function Tickets() {
                       )}
                       <div className="detail-row">
                         <Calendar size={16} />
-                        <span>Atualizado em: {new Date(ticket.updated_at).toLocaleString()}</span>
+                        <span>Criado em: {new Date(ticket.created_at).toLocaleString()}</span>
                       </div>
                       <div className="detail-row">
                         <AlertTriangle size={16} />
-                        <span>Status: <strong>{ticket.status === 1 ? 'Aberto' : 'Finalizado'}</strong></span>
+                        <span>Status: <strong className={ticket.status === 2 ? 'text-resolved' : ''}>
+                          {ticket.status === 1 ? 'Aberto' : 'Resolvido'}
+                        </strong></span>
                       </div>
                     </div>
                   </div>
                   
                   <div className="action-footer">
-                    <button className="btn-resolve">Marcar como Resolvido</button>
-                    <button className="btn-secondary">Enviar Mensagem</button>
+                    {ticket.status === 1 ? (
+                      <button 
+                        className="btn-resolve" 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleResolve(ticket.id);
+                        }}
+                      >
+                        Marcar como Resolvido
+                      </button>
+                    ) : (
+                      <div className="resolved-stamp">
+                        <CheckCircle2 size={16} />
+                        Este ticket já foi solucionado
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
@@ -171,7 +199,6 @@ export function Tickets() {
         )}
       </div>
 
-      {/* Paginação */}
       <footer className="pagination-footer">
         <button 
           disabled={page === 1} 

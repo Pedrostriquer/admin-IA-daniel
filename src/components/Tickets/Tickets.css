@@ -236,3 +236,56 @@
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+/* Estilo para Ticket Resolvido */
+.ticket-item.is-resolved {
+  background-color: #fcfdfc; /* Fundo levemente esverdeado/claro */
+  border-left: 4px solid #b2f5ea; /* Borda lateral sutil indicando sucesso */
+  opacity: 0.85; /* Deixa ele levemente mais "frio" que os abertos */
+}
+
+.ticket-item.is-resolved:hover {
+  opacity: 1;
+}
+
+.resolved-icon-check {
+  color: #38a169;
+  margin-right: 12px;
+}
+
+.text-resolved {
+  color: #38a169;
+  font-weight: 800;
+}
+
+/* Badge especial no rodapé do ticket resolvido */
+.resolved-stamp {
+  font-size: 13px;
+  color: #38a169;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #f0fff4;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid #c6f6d5;
+}
+
+/* Ajuste no botão de resolver para não ser tão chamativo após o clique */
+.btn-resolve {
+  background: #FFD700;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-resolve:hover {
+  background: #e6c200;
+  transform: translateY(-1px);
+}
+
+/* Remover o estilo do botão secundário já que tiramos ele */
+.btn-secondary { display: none; }

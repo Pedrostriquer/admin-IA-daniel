@@ -3,7 +3,8 @@ import { Sidebar } from './components/Sidebar/Sidebar';
 import { Chats } from './components/Chats/Chats';
 import { Login } from './components/Login/Login';
 import { Tickets } from './components/Tickets/Tickets';
-import { Dashboard } from './components/Dashboard/Dashboard'; // 1. Importe o novo componente
+import { Dashboard } from './components/Dashboard/Dashboard';
+import { Profile } from './components/Profile/Profile'; // Importação do novo componente
 import './App.css';
 
 // Componente para envolver páginas que precisam da Sidebar
@@ -26,6 +27,12 @@ function App() {
         <Route path="/login" element={<Login />} />
 
         {/* Rotas Protegidas (com Sidebar) */}
+        <Route path="/dashboard" element={
+          <Layout>
+            <Dashboard />
+          </Layout>
+        } />
+
         <Route path="/chats" element={
           <Layout>
             <Chats />
@@ -37,11 +44,11 @@ function App() {
             <Tickets />
           </Layout>
         } />
-        
-        {/* 2. Rota de Dashboard atualizada para usar o componente real */}
-        <Route path="/dashboard" element={
+
+        {/* Rota de Perfil (onde será feito o cadastro de novos admins) */}
+        <Route path="/profile" element={
           <Layout>
-            <Dashboard />
+            <Profile />
           </Layout>
         } />
 

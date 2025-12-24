@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { 
   MessageSquare, 
   LayoutDashboard, 
-  Settings, 
+  User, // Ícone de Perfil
   ChevronLeft, 
   ChevronRight,
   Zap,
@@ -70,11 +70,11 @@ export function Sidebar() {
 
       <div className="sidebar-footer">
         <NavLink 
-          to="/settings" 
+          to="/profile" 
           className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
         >
-          <Settings size={22} />
-          {!isCollapsed && <span>Configurações</span>}
+          <User size={22} />
+          {!isCollapsed && <span>Perfil</span>}
         </NavLink>
 
         <button className="nav-link logout-btn" onClick={handleLogout}>
