@@ -2,7 +2,16 @@ import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import './Chats.css';
 import { chatService } from '../../services/chatService';
-import { Search, Globe, Instagram, Send, MoreVertical, ChevronLeft, ChevronRight } from 'lucide-react';
+import { 
+  Search, 
+  Globe, 
+  Instagram, 
+  Send, 
+  MoreVertical, 
+  ChevronLeft, 
+  ChevronRight,
+  MessageSquare // Novo ícone para a plataforma de sistema
+} from 'lucide-react';
 
 export function Chats() {
   const [chats, setChats] = useState([]);
@@ -17,6 +26,20 @@ export function Chats() {
   const stripTags = (text) => {
     if (!text) return "";
     return text.replace(/<[^>]*>/g, ''); // Remove qualquer coisa entre < >
+  };
+
+  // Função auxiliar para renderizar o ícone correto baseado na plataforma
+  const renderPlatformIcon = (platformName, size = 14) => {
+    switch (platformName) {
+      case 'website':
+        return <Globe size={size} />;
+      case 'instagram':
+        return <Instagram size={size} />;
+      case 'plataforma':
+        return <MessageSquare size={size} />;
+      default:
+        return <MessageSquare size={size} />;
+    }
   };
 
   useEffect(() => {
@@ -66,6 +89,10 @@ export function Chats() {
             <button className={platform === 'instagram' ? 'active' : ''} onClick={() => setPlatform('instagram')}>
               <Instagram size={14} /> Insta
             </button>
+            {/* Novo filtro para a plataforma de sistema */}
+            <button className={platform === 'plataforma' ? 'active' : ''} onClick={() => setPlatform('plataforma')}>
+              <MessageSquare size={14} /> Sistema
+            </button>
           </div>
         </header>
 
@@ -79,7 +106,7 @@ export function Chats() {
               <div className="avatar-wrapper">
                 <div className="avatar-initials">{chat.name.charAt(0)}</div>
                 <div className={`platform-badge ${chat.platform}`}>
-                  {chat.platform === 'website' ? <Globe size={10} /> : <Instagram size={10} />}
+                  {renderPlatformIcon(chat.platform, 10)}
                 </div>
               </div>
               <div className="chat-info">
@@ -89,7 +116,6 @@ export function Chats() {
                     {chat.last_message_at ? new Date(chat.last_message_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : ''}
                   </span>
                 </div>
-                {/* Aqui limpamos a mensagem para o preview na lista lateral */}
                 <p className="last-message">{stripTags(chat.last_message_content)}</p>
               </div>
             </div>
@@ -115,7 +141,9 @@ export function Chats() {
                 <div className="avatar-initials">{selectedChat.name.charAt(0)}</div>
                 <div>
                   <h3>{selectedChat.name}</h3>
-                  <span className="status">Online via {selectedChat.platform}</span>
+                  <span className="status">
+                    Online via {selectedChat.platform === 'plataforma' ? 'Sistema' : selectedChat.platform}
+                  </span>
                 </div>
               </div>
               <MoreVertical size={20} className="clickable" />
@@ -129,7 +157,6 @@ export function Chats() {
                   <div key={msg.id} className={`message-row ${msg.role}`}>
                     <div className="message-bubble">
                       <div className="markdown-content">
-                        {/* No chat principal, usamos Markdown normalmente */}
                         <ReactMarkdown>
                           {msg.content?.replace(/<negrito>/g, '**').replace(/<\/negrito>/g, '**')}
                         </ReactMarkdown>

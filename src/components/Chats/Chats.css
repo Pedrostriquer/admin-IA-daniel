@@ -46,6 +46,7 @@
 .filters {
   display: flex;
   gap: 8px;
+  flex-wrap: wrap; /* Garante que os botões quebrem linha se necessário */
 }
 
 .filters button {
@@ -114,8 +115,10 @@
   display: flex;
 }
 
+/* Cores das Plataformas */
 .platform-badge.instagram { color: #E1306C; }
 .platform-badge.website { color: #007AFF; }
+.platform-badge.plataforma { color: #5856D6; } /* Cor roxa para diferenciar o Sistema */
 
 .chat-info { flex: 1; min-width: 0; }
 .chat-info-top {

@@ -7,7 +7,7 @@ export const chatService = {
    */
   getChats: async (params = {}) => {
     try {
-      // Adicionado o prefixo /api para coincidir com a nova configuração da baseURL
+      // Prefixo /api para coincidir com a configuração da baseURL
       const response = await api.get('/api/admin/chats', { params });
       return response.data; 
       // Retorna { data: [...], pagination: {...} }
@@ -24,12 +24,26 @@ export const chatService = {
    */
   getChatMessages: async (chatId, params = { limit: 50 }) => {
     try {
-      // Adicionado o prefixo /api para coincidir com a nova configuração da baseURL
       const response = await api.get(`/api/admin/chats/${chatId}/messages`, { params });
       return response.data;
       // Retorna { data: [...], pagination: {...} }
     } catch (error) {
       console.error(`Erro ao buscar mensagens do chat ${chatId}:`, error);
+      throw error;
+    }
+  },
+
+  /**
+   * Estatísticas de Conversas (Dashboard)
+   * Retorna totais, atividade de hoje e crescimento
+   */
+  getStats: async () => {
+    try {
+      const response = await api.get('/api/admin/stats/chats');
+      return response.data;
+      // Retorna { totals: {...}, today: {...}, growth_vs_yesterday: {...} }
+    } catch (error) {
+      console.error("Erro ao buscar estatísticas:", error);
       throw error;
     }
   }

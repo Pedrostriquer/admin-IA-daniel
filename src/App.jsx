@@ -3,6 +3,7 @@ import { Sidebar } from './components/Sidebar/Sidebar';
 import { Chats } from './components/Chats/Chats';
 import { Login } from './components/Login/Login';
 import { Tickets } from './components/Tickets/Tickets';
+import { Dashboard } from './components/Dashboard/Dashboard'; // 1. Importe o novo componente
 import './App.css';
 
 // Componente para envolver páginas que precisam da Sidebar
@@ -37,12 +38,10 @@ function App() {
           </Layout>
         } />
         
+        {/* 2. Rota de Dashboard atualizada para usar o componente real */}
         <Route path="/dashboard" element={
           <Layout>
-            <div style={{ padding: '32px' }}>
-              <h1 style={{ fontSize: '28px', fontWeight: '800' }}>Dashboard</h1>
-              <p style={{ color: '#6F767E', marginTop: '8px' }}>Estatísticas em breve...</p>
-            </div>
+            <Dashboard />
           </Layout>
         } />
 
