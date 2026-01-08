@@ -1,0 +1,135 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    background: white;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #F1F1F4;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1d1d1f;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #8e8e93;
+    padding: 4px;
+    display: flex;
+}
+
+.modal-body {
+    padding: 30px 24px;
+}
+
+.profile-main-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.profile-avatar {
+    width: 80px;
+    height: 80px;
+    background: #FFD700;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1d1d1f;
+    margin-bottom: 16px;
+}
+
+.profile-main-info h3 {
+    margin: 0 0 8px 0;
+    font-size: 1.5rem;
+}
+
+.status-badge {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.status-badge.active {
+    background: #E2FBE7;
+    color: #34C759;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.info-item.full-width {
+    grid-column: span 2;
+}
+
+.info-item label {
+    font-size: 0.75rem;
+    color: #8e8e93;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+}
+
+.info-item span {
+    font-size: 0.95rem;
+    color: #1d1d1f;
+    font-weight: 500;
+}
+
+.lead-source-box {
+    margin-top: 4px;
+    padding: 12px;
+    background: #F1F1F4;
+    border-radius: 12px;
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: #444;
+    word-break: break-all;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}

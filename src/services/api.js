@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://verticalaidaniel.softwarehousecaiuademello.com.br', // Alterado para a raiz para suportar todas as rotas
+  baseURL: 'https://verticalaidaniel.softwarehousecaiuademello.com.br', 
+  // baseURL: 'http://localhost:3000',
   headers: {
     'accept': '*/*',
     'Content-Type': 'application/json'
