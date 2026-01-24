@@ -13,6 +13,7 @@ import {
   ChevronRight,
   MessageSquare,
   User,
+  Banknote,
 } from "lucide-react";
 
 export function Chats() {
@@ -134,7 +135,18 @@ export function Chats() {
               </div>
               <div className="chat-info">
                 <div className="chat-info-top">
-                  <span className="customer-name">{chat.name}</span>
+                  <div className="name-with-icon">
+                    <span className="customer-name">{chat.name}</span>
+                    {chat.budget && (
+                      <Banknote
+                        size={16}
+                        className="budget-icon"
+                        color="#22c55e"
+                        style={{ marginLeft: "6px", display: "inline" }}
+                        title={`Interesse de aporte: ${chat.budget}`}
+                      />
+                    )}
+                  </div>
                   <span className="chat-time">
                     {chat.last_message_at
                       ? new Date(chat.last_message_at).toLocaleTimeString([], {
@@ -185,6 +197,12 @@ export function Chats() {
                 </div>
               </div>
               <div className="header-actions">
+                {selectedChat.budget && (
+                  <div className="header-budget-badge">
+                    <Banknote size={18} color="#22c55e" />
+                    <span className="budget-value">{selectedChat.budget}</span>
+                  </div>
+                )}
                 <MoreVertical
                   size={20}
                   className="clickable"

@@ -140,9 +140,22 @@
   margin-bottom: 4px;
 }
 
+.name-with-icon {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
 .customer-name {
   font-weight: 600;
   color: #1d1d1f;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.budget-icon {
+  flex-shrink: 0;
 }
 
 .chat-time {
@@ -191,7 +204,27 @@
 }
 
 .header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
   position: relative;
+}
+
+.header-budget-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #f0fdf4;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid #bbf7d0;
+  flex-shrink: 0;
+}
+
+.budget-value {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #15803d;
 }
 
 .header-dropdown {
@@ -332,4 +365,10 @@
 
 .clickable {
   cursor: pointer;
+  color: #8e8e93;
+  transition: color 0.2s;
+}
+
+.clickable:hover {
+  color: #1d1d1f;
 }
