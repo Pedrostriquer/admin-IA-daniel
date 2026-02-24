@@ -16,6 +16,32 @@ import {
   Banknote,
 } from "lucide-react";
 
+const formatDateTime = (timestamp) => {
+  if (!timestamp) return "";
+  const date = new Date(timestamp);
+  const now = new Date();
+
+  const isToday =
+    date.getDate() === now.getDate() &&
+    date.getMonth() === now.getMonth() &&
+    date.getFullYear() === now.getFullYear();
+
+  const timeStr = date.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  if (isToday) {
+    return timeStr;
+  } else {
+    const dateStr = date.toLocaleDateString([], {
+      day: "2-digit",
+      month: "2-digit",
+    });
+    return `${dateStr} ${timeStr}`;
+  }
+};
+
 export function Chats() {
   const [chats, setChats] = useState([]);
   const [selectedChat, setSelectedChat] = useState(null);
@@ -87,7 +113,7 @@ export function Chats() {
               type="text"
               placeholder="Buscar cliente..."
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
           <div className="filters">
@@ -148,12 +174,7 @@ export function Chats() {
                     )}
                   </div>
                   <span className="chat-time">
-                    {chat.last_message_at
-                      ? new Date(chat.last_message_at).toLocaleTimeString([], {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        })
-                      : ""}
+                    {formatDateTime(chat.last_message_at)}
                   </span>
                 </div>
                 <p className="last-message">
@@ -238,10 +259,7 @@ export function Chats() {
                         </ReactMarkdown>
                       </div>
                       <span className="msg-time">
-                        {new Date(msg.created_at).toLocaleTimeString([], {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        })}
+                        {formatDateTime(msg.created_at)}
                       </span>
                     </div>
                   </div>

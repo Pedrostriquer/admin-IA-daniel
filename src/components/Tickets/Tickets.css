@@ -113,7 +113,6 @@
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
 }
 
-/* Animação de processamento no Card */
 .ticket-card.is-processing {
   pointer-events: none;
   animation: pulseCard 1.5s infinite ease-in-out;
@@ -155,6 +154,12 @@
   gap: 20px;
 }
 
+.header-info-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
 .ticket-number {
   font-family: 'Monaco', monospace;
   font-weight: 700;
@@ -169,6 +174,14 @@
   font-size: 16px;
   font-weight: 700;
   color: var(--dark);
+}
+
+.ticket-client-name {
+  font-size: 12px;
+  color: var(--text-light);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
 }
 
 .header-right {
@@ -324,7 +337,6 @@
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-/* Paginação */
 .pagination-bar {
   padding: 30px 0;
   display: flex;
@@ -347,7 +359,6 @@
   cursor: not-allowed;
 }
 
-/* Toast Mensagem */
 .modern-toast {
   position: fixed;
   bottom: 40px;
@@ -380,7 +391,6 @@
   border-left: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Animações */
 .exit-anim {
   opacity: 0;
   transform: translateX(30px);

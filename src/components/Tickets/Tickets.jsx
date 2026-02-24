@@ -5,7 +5,6 @@ import {
   ChevronDown,
   User,
   Hash,
-  AlertTriangle,
   ChevronLeft,
   ChevronRight,
   Calendar,
@@ -36,7 +35,7 @@ export function Tickets() {
     totalPages: 1,
   });
   const [loading, setLoading] = useState(true);
-  const [loadingId, setLoadingId] = useState(null); // Estado para animação de "fazendo o trem"
+  const [loadingId, setLoadingId] = useState(null);
   const [expandedId, setExpandedId] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [priority, setPriority] = useState("");
@@ -70,9 +69,8 @@ export function Tickets() {
 
   const handleUpdateStatus = async (id, newStatus) => {
     try {
-      setLoadingId(id); // Inicia animação de carregamento no card
+      setLoadingId(id);
       await ticketService.updateTicket(id, { status: newStatus });
-
       const statusLabel = STATUS_MAP[newStatus].label;
 
       if (status !== "" && Number(status) !== newStatus) {
@@ -97,7 +95,6 @@ export function Tickets() {
         });
         setLoadingId(null);
       }
-
       setTimeout(() => setToast({ show: false, message: "" }), 3500);
     } catch (err) {
       console.error(err);
@@ -196,7 +193,12 @@ export function Tickets() {
               >
                 <div className="header-left">
                   <div className="ticket-number">#{ticket.id}</div>
-                  <h3 className="ticket-title">{ticket.title}</h3>
+                  <div className="header-info-wrapper">
+                    <h3 className="ticket-title">{ticket.title}</h3>
+                    <span className="ticket-client-name">
+                      {ticket.client_name || `Cliente ${ticket.client_id}`}
+                    </span>
+                  </div>
                 </div>
 
                 <div className="header-right">
@@ -231,7 +233,16 @@ export function Tickets() {
                       <div className="info-row">
                         <User size={16} />
                         <span>
-                          Cliente: <strong>{ticket.client_id}</strong>
+                          Nome:{" "}
+                          <strong>
+                            {ticket.client_name || "Não informado"}
+                          </strong>
+                        </span>
+                      </div>
+                      <div className="info-row">
+                        <Hash size={16} />
+                        <span>
+                          ID Cliente: <strong>{ticket.client_id}</strong>
                         </span>
                       </div>
                       {ticket.contract_id && (
@@ -280,7 +291,6 @@ export function Tickets() {
                           </button>
                         </>
                       )}
-
                       {ticket.status === 2 && (
                         <>
                           <button
@@ -303,7 +313,6 @@ export function Tickets() {
                           </button>
                         </>
                       )}
-
                       {ticket.status === 3 && (
                         <>
                           <button
@@ -320,7 +329,6 @@ export function Tickets() {
                           </button>
                         </>
                       )}
-
                       {ticket.status === 4 && (
                         <button
                           className="btn-act btn-pending"
